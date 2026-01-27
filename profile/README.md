@@ -1,10 +1,10 @@
 # LW Plugins
 
-**Lightweight WordPress Plugins** — No bloat, no upsell, no tracking.
+**Lightweight WordPress Plugins** — Minimal footprint, maximum impact.
 
 ## Philosophy
 
-- Minimal footprint, maximum efficiency
+- Minimal footprint, maximum impact
 - Modern PHP 8.0+ with PSR-4 autoloading
 - Composer installable
 - WordPress.org compatible
