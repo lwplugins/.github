@@ -1,0 +1,77 @@
+name: Update README from Registry
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [registry-updated]
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate README from registry
+        env:
+          REGISTRY_URL: "https://raw.githubusercontent.com/lwplugins/registry/main/plugins.json"
+        run: |
+          REGISTRY=$(curl -sf "$REGISTRY_URL")
+
+          if [ -z "$REGISTRY" ]; then
+            echo "Failed to fetch registry"
+            exit 1
+          fi
+
+          STATUS_MAP='{"stable":"![Stable](https://img.shields.io/badge/-stable-emerald)","beta":"![Beta](https://img.shields.io/badge/-beta-orange)","alpha":"![Alpha](https://img.shields.io/badge/-alpha-red)"}'
+
+          TABLE_ROWS=$(echo "$REGISTRY" | jq -r --argjson sm "$STATUS_MAP" '
+            to_entries[] |
+            .key as $slug |
+            .value |
+            "| [\(.name)](https://github.com/lwplugins/\($slug)) | \(.description) | \($sm[.status // "beta"]) | `composer require lwplugins/\($slug)` |"
+          ')
+
+          cat > profile/README.md << 'HEADER'
+          # LW Plugins
+
+          **Lightweight WordPress Plugins** — Minimal footprint, maximum impact.
+
+          ## Philosophy
+
+          - Minimal footprint, maximum impact
+          - Modern PHP 8.2+ with PSR-4 autoloading
+          - Composer installable
+          - WordPress.org compatible
+          - GPL-2.0 licensed
+
+          ## Plugins
+
+          | Plugin | Description | Status | Install |
+          |--------|-------------|--------|---------|
+          HEADER
+
+          echo "$TABLE_ROWS" >> profile/README.md
+
+          cat >> profile/README.md << 'FOOTER'
+
+          ## Links
+
+          - [lwplugins.com](https://lwplugins.com)
+          - [Packagist](https://packagist.org/packages/lwplugins/)
+          FOOTER
+
+          sed -i 's/^          //' profile/README.md
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet profile/README.md && exit 0
+          git add profile/README.md
+          git commit -m "Update README from plugin registry"
+          git push
