@@ -21,6 +21,7 @@
 | [LW LMS](https://github.com/lwplugins/lw-lms) | Courses, lessons, and progress tracking. | ![Beta](https://img.shields.io/badge/-beta-orange) | `composer require lwplugins/lw-lms` |
 | [LW Cookie](https://github.com/lwplugins/lw-cookie) | GDPR-compliant cookie consent banner. | ![Stable](https://img.shields.io/badge/-stable-emerald) | `composer require lwplugins/lw-cookie` |
 | [LW Enable](https://github.com/lwplugins/lw-enable) | Enable WordPress features: SVG uploads and more. | ![Beta](https://img.shields.io/badge/-beta-orange) | `composer require lwplugins/lw-enable` |
+| [LW Translate](https://github.com/lwplugins/lw-translate) | Manage WordPress translations from community repositories. | ![Beta](https://img.shields.io/badge/-beta-orange) | `composer require lwplugins/lw-translate` |
 
 ## Links
 
