@@ -23,6 +23,14 @@
 | [LW Enable](https://github.com/lwplugins/lw-enable) | Enable WordPress features: SVG uploads and more. | ![Beta](https://img.shields.io/badge/-beta-orange) | `composer require lwplugins/lw-enable` |
 | [LW Translate](https://github.com/lwplugins/lw-translate) | Manage WordPress translations from community repositories. | ![Beta](https://img.shields.io/badge/-beta-orange) | `composer require lwplugins/lw-translate` |
 
+## Sponsor
+
+<a href="https://sinann.io/">
+  <img src="https://sinann.io/favicon.svg" alt="Sinann" width="40">
+</a>
+
+Supported by [Sinann](https://sinann.io/)
+
 ## Links
 
 - [lwplugins.com](https://lwplugins.com)
